@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 7.2.0" type="partial_results">
+    <map id="UnusedResources">
+        <location id="R.drawable.ic_launcher"
+            file="${:app*debug*sourceProvider*0*resDir*0}/drawable-hdpi/ic_launcher.png"/>
+        <location id="R.style.AppTheme"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/styles.xml"
+            line="16"
+            column="12"
+            startOffset="517"
+            endLine="16"
+            endColumn="27"
+            endOffset="532"/>
+        <location id="R.drawable.ic_launcher_round"
+            file="${:app*debug*sourceProvider*0*resDir*0}/drawable-hdpi/ic_launcher_round.png"/>
+        <location id="R.string.buttonCamera"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="8"
+            column="13"
+            startOffset="308"
+            endLine="8"
+            endColumn="32"
+            endOffset="327"/>
+        <location id="R.string.buttonImage"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="9"
+            column="13"
+            startOffset="366"
+            endLine="9"
+            endColumn="31"
+            endOffset="384"/>
+        <entry
+            name="model"
+            string="color[fps_text(U),title_bg(U),title_text(U)],dimen[activity_vertical_margin(D),activity_horizontal_margin(D)],drawable[ic_launcher_round(D),num_bg(U),rockchip(U),img_logo(U),fps_bg(U),ic_launcher(D)],id[canvasView(U),textViewTitle(D),surfaceViewCamera1(U),fps_num4(U),textView(D),fps_num1(U),fps_num3(U),fps_num2(U)],layout[activity_main(U),main2(D)],raw[yolov5s_rk3566(U),yolov5s_rk3588(U),yolov5s_rk3576(U),yolov5s_rk3562(U)],string[buttonImage(D),app_title(U),buttonCamera(D),app_name(U),title_activity_start(U),powered_by_rockchip(U)],style[AppBaseTheme(D),AppTheme(D)];13^1^1a^2^8^9^1e^6^0,20^1f;;;"/>
+        <location id="R.layout.main2"
+            file="${:app*debug*sourceProvider*0*resDir*0}/layout/main2.xml"
+            line="2"
+            column="1"
+            startOffset="39"
+            endLine="11"
+            endColumn="15"
+            endOffset="372"/>
+        <location id="R.style.AppBaseTheme"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/styles.xml"
+            line="7"
+            column="12"
+            startOffset="193"
+            endLine="7"
+            endColumn="31"
+            endOffset="212"/>
+        <location id="R.dimen.activity_horizontal_margin"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/dimens.xml"
+            line="4"
+            column="12"
+            startOffset="96"
+            endLine="4"
+            endColumn="45"
+            endOffset="129"/>
+        <location id="R.dimen.activity_vertical_margin"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/dimens.xml"
+            line="5"
+            column="12"
+            startOffset="154"
+            endLine="5"
+            endColumn="43"
+            endOffset="185"/>
+    </map>
+
+</incidents>

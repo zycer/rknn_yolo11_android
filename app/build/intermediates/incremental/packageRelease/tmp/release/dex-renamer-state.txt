@@ -1,0 +1,4 @@
+#Sun Sep 28 15:51:15 CST 2025
+base.0=/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

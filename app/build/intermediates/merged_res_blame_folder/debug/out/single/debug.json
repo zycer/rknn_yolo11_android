@@ -1,0 +1,70 @@
+[
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/raw_yolo11s_trained_i8.rknn.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/raw/yolo11s_trained_i8.rknn"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/raw_yolov5s_rk3562.rknn.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/raw/yolov5s_rk3562.rknn"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/drawable-hdpi_img_logo.png.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/drawable-hdpi/img_logo.png"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/raw_trained_yolov7.rknn.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/raw/trained_yolov7.rknn"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/drawable-hdpi_fps_bg.9.png.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/drawable-hdpi/fps_bg.9.png"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/raw_yolov5s_rk3566.rknn.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/raw/yolov5s_rk3566.rknn"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/drawable-hdpi_num_bg.png.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/drawable-hdpi/num_bg.png"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/drawable-hdpi_rockchip.png.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/drawable-hdpi/rockchip.png"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/raw_yolov5s_rk3576.rknn.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/raw/yolov5s_rk3576.rknn"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/drawable-hdpi_ic_launcher_round.png.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/drawable-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/layout_activity_main.xml.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/layout_main2.xml.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/layout/main2.xml"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/raw_yolov5s_rk3588.rknn.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/raw/yolov5s_rk3588.rknn"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/raw_yolov7.rknn.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/raw/yolov7.rknn"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/raw_yolov7n_i8.rknn.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/raw/yolov7n_i8.rknn"
+    },
+    {
+        "merged": "com.rockchip.gpadc.demo.app-merged_res-9:/raw_yolov7n_i8.rknn.flat",
+        "source": "com.rockchip.gpadc.demo.app-main-11:/raw/yolov7n_i8.rknn"
+    },
+    {
+        "merged": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-merged_res-9:/drawable-hdpi_ic_launcher.png.flat",
+        "source": "/Users/zycer/.gradle/daemon/7.3.3/com.rockchip.gpadc.demo.app-main-11:/drawable-hdpi/ic_launcher.png"
+    }
+]

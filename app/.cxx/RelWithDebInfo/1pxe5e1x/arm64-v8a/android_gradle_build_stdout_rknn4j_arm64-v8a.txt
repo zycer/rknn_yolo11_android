@@ -1,0 +1,8 @@
+ninja: Entering directory `/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/RelWithDebInfo/1pxe5e1x/arm64-v8a'
+[1/7] Building CXX object CMakeFiles/rknn4j.dir/src/main/cpp/native-lib.cc.o
+[2/7] Building CXX object CMakeFiles/rknn4j.dir/src/main/cpp/object_tracker/track_link.cc.o
+[3/7] Building CXX object CMakeFiles/rknn4j.dir/src/main/cpp/object_tracker/objects_update.cc.o
+[4/7] Building CXX object CMakeFiles/rknn4j.dir/src/main/cpp/object_tracker/objects_tracker.cc.o
+[5/7] Building CXX object CMakeFiles/rknn4j.dir/src/main/cpp/post_process.cc.o
+[6/7] Building CXX object CMakeFiles/rknn4j.dir/src/main/cpp/yolo_image.cc.o
+[7/7] Linking CXX shared library ../../../../build/intermediates/cxx/RelWithDebInfo/1pxe5e1x/obj/arm64-v8a/librknn4j.so

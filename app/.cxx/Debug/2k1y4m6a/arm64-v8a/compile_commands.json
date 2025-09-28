@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/Debug/2k1y4m6a/arm64-v8a",
+  "command": "/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android24 --gcc-toolchain=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Drknn4j_EXPORTS -I../../../../src/main/cpp/rga -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++11 -fexceptions -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles/rknn4j.dir/src/main/cpp/native-lib.cc.o -c /Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/native-lib.cc",
+  "file": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/native-lib.cc"
+},
+{
+  "directory": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/Debug/2k1y4m6a/arm64-v8a",
+  "command": "/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android24 --gcc-toolchain=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Drknn4j_EXPORTS -I../../../../src/main/cpp/rga -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++11 -fexceptions -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles/rknn4j.dir/src/main/cpp/post_process.cc.o -c /Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/post_process.cc",
+  "file": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/post_process.cc"
+},
+{
+  "directory": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/Debug/2k1y4m6a/arm64-v8a",
+  "command": "/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android24 --gcc-toolchain=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Drknn4j_EXPORTS -I../../../../src/main/cpp/rga -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++11 -fexceptions -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles/rknn4j.dir/src/main/cpp/yolo_image.cc.o -c /Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/yolo_image.cc",
+  "file": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/yolo_image.cc"
+},
+{
+  "directory": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/Debug/2k1y4m6a/arm64-v8a",
+  "command": "/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android24 --gcc-toolchain=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Drknn4j_EXPORTS -I../../../../src/main/cpp/rga -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++11 -fexceptions -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles/rknn4j.dir/src/main/cpp/object_tracker/track_link.cc.o -c /Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/object_tracker/track_link.cc",
+  "file": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/object_tracker/track_link.cc"
+},
+{
+  "directory": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/Debug/2k1y4m6a/arm64-v8a",
+  "command": "/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android24 --gcc-toolchain=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Drknn4j_EXPORTS -I../../../../src/main/cpp/rga -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++11 -fexceptions -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles/rknn4j.dir/src/main/cpp/object_tracker/objects_tracker.cc.o -c /Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/object_tracker/objects_tracker.cc",
+  "file": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/object_tracker/objects_tracker.cc"
+},
+{
+  "directory": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/Debug/2k1y4m6a/arm64-v8a",
+  "command": "/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android24 --gcc-toolchain=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -Drknn4j_EXPORTS -I../../../../src/main/cpp/rga -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -std=c++11 -fexceptions -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles/rknn4j.dir/src/main/cpp/object_tracker/objects_update.cc.o -c /Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/object_tracker/objects_update.cc",
+  "file": "/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/cpp/object_tracker/objects_update.cc"
+}
+]

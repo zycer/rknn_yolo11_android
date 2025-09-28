@@ -1,0 +1,38 @@
+{
+  "buildFiles": [
+    "/Users/zycer/workspace/rknn_yolov11_android_apk_demo/app/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/zycer/Library/Android/sdk/cmake/3.18.1/bin/ninja",
+      "-C",
+      "/Users/zycer/workspace/rknn_yolov11_android_apk_demo/app/.cxx/Debug/g6q3f531/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/zycer/Library/Android/sdk/cmake/3.18.1/bin/ninja",
+    "-C",
+    "/Users/zycer/workspace/rknn_yolov11_android_apk_demo/app/.cxx/Debug/g6q3f531/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "rknn4j::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "arm64-v8a",
+      "artifactName": "rknn4j",
+      "output": "/Users/zycer/workspace/rknn_yolov11_android_apk_demo/app/build/intermediates/cxx/Debug/g6q3f531/obj/arm64-v8a/librknn4j.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang",
+      "cppCompilerExecutable": "/Users/zycer/Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cc"
+  ]
+}

@@ -1,0 +1,19 @@
+<lint-module
+    format="1"
+    dir="/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app"
+    name=":app"
+    type="APP"
+    maven="rknn_yolov5_android_apk_demo:app:"
+    gradle="7.2.0"
+    buildFolder="build"
+    bootClassPath="/Users/zycer/Library/Android/sdk/platforms/android-28/android.jar"
+    javaSourceLevel="1.7"
+    compileTarget="android-28"
+    neverShrinking="true">
+  <lintOptions
+      abortOnError="true"
+      absolutePaths="true"
+      checkReleaseBuilds="true"
+      explainIssues="true"/>
+  <variant name="release"/>
+</lint-module>

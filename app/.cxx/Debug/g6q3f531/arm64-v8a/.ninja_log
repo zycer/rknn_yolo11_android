@@ -1,0 +1,8 @@
+# ninja log v5
+0	419	1759052255	CMakeFiles/rknn4j.dir/src/main/cpp/native-lib.cc.o	8659f18b579f9edd
+2	559	1759052255	CMakeFiles/rknn4j.dir/src/main/cpp/object_tracker/track_link.cc.o	145de7969461aed3
+2	759	1759052255	CMakeFiles/rknn4j.dir/src/main/cpp/object_tracker/objects_update.cc.o	63166fb37f8cc59e
+2	792	1759052255	CMakeFiles/rknn4j.dir/src/main/cpp/object_tracker/objects_tracker.cc.o	41acd58e2caf3ab1
+1	795	1759052255	CMakeFiles/rknn4j.dir/src/main/cpp/post_process.cc.o	362581b83fbc14bf
+1	979	1759052256	CMakeFiles/rknn4j.dir/src/main/cpp/yolo_image.cc.o	e6893329df3d9f8d
+979	1094	1759052256	../../../../build/intermediates/cxx/Debug/g6q3f531/obj/arm64-v8a/librknn4j.so	c613ee7edf33a235

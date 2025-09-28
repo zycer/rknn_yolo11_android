@@ -1,0 +1,3 @@
+/Users/zycer/workspace/rknn_yolov11_android_apk_demo/app/.cxx/Debug/g6q3f531/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/zycer/workspace/rknn_yolov11_android_apk_demo/app/.cxx/Debug/g6q3f531/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/zycer/workspace/rknn_yolov11_android_apk_demo/app/.cxx/Debug/g6q3f531/arm64-v8a/CMakeFiles/rknn4j.dir

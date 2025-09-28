@@ -1,0 +1,79 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.rockchip.gpadc.yolodemo"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="25"
+8-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="32" />
+9-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:7:5-65
+11-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:7:22-62
+12    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+12-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:8:5-80
+12-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:8:22-77
+13    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+13-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:9:5-81
+13-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:9:22-78
+14
+15    <uses-feature android:name="android.hardware.camera" />
+15-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:10:5-60
+15-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:10:19-57
+16
+17    <application
+17-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:13:5-38:19
+18        android:allowBackup="true"
+18-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:14:9-35
+19        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+19-->[com.android.support:support-compat:28.0.0] /Users/zycer/.gradle/caches/transforms-3/85e8df90276e95c75de3fa04945b018a/transformed/support-compat-28.0.0/AndroidManifest.xml:22:18-91
+20        android:extractNativeLibs="false"
+21        android:icon="@drawable/rockchip"
+21-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:15:9-42
+22        android:label="@string/app_name"
+22-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:16:9-41
+23        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+23-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:17:9-67
+24
+25        <!-- <activity -->
+26        <!-- android:name=".MainActivity" -->
+27        <!-- android:screenOrientation="landscape"> -->
+28        <!-- </activity> -->
+29        <activity
+29-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:22:9-31:20
+30            android:name="com.rockchip.gpadc.demo.MainActivity"
+30-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:23:13-64
+31            android:exported="true"
+31-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:26:13-36
+32            android:label="@string/title_activity_start"
+32-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:25:13-57
+33            android:screenOrientation="sensorLandscape" >
+33-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:24:13-56
+34            <intent-filter>
+34-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:27:13-30:29
+35                <action android:name="android.intent.action.MAIN" />
+35-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:28:17-69
+35-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:28:25-66
+36
+37                <category android:name="android.intent.category.LAUNCHER" />
+37-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:29:17-77
+37-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:29:27-74
+38            </intent-filter>
+39        </activity>
+40        <activity
+40-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:32:9-37:20
+41            android:name="com.rockchip.gpadc.demo.CameraPreviewActivity"
+41-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:33:13-73
+42            android:exported="false"
+42-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:36:13-37
+43            android:label="@string/title_activity_start"
+43-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:35:13-57
+44            android:screenOrientation="sensorLandscape" >
+44-->/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/src/main/AndroidManifest.xml:34:13-56
+45        </activity>
+46    </application>
+47
+48</manifest>
