@@ -1,3 +1,0 @@
-/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/RelWithDebInfo/1pxe5e1x/arm64-v8a/CMakeFiles/rebuild_cache.dir
-/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/RelWithDebInfo/1pxe5e1x/arm64-v8a/CMakeFiles/edit_cache.dir
-/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/RelWithDebInfo/1pxe5e1x/arm64-v8a/CMakeFiles/rknn4j.dir

@@ -1,2 +1,0 @@
-ninja: Entering directory `/Users/zycer/workspace/rknn_yolov5_android_apk_demo/app/.cxx/Debug/2k1y4m6a/arm64-v8a'
-ninja: no work to do.
