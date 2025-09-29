@@ -19,14 +19,20 @@
 #define RK_YOLOV5_DEMO_POST_PROCESS_H
 
 #include <stdint.h>
+#include <vector>
+#ifdef __ANDROID__
 #include <android/log.h>
-
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "rkyolo4j", ##__VA_ARGS__);
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, "rkyolo4j", ##__VA_ARGS__);
+#else
+#include <stdio.h>
+#define LOGI(...) printf(__VA_ARGS__); printf("\n");
+#define LOGE(...) printf(__VA_ARGS__); printf("\n");
+#endif
 
 #define OBJ_NAME_MAX_SIZE 16
 #define OBJ_NUMB_MAX_SIZE 64
-#define OBJ_CLASS_NUM     5
+#define OBJ_CLASS_NUM     5  // COCO dataset has 80 classes
 #define NMS_THRESH        0.6
 #define BOX_THRESH        0.5
 #define PROP_BOX_SIZE     (5+OBJ_CLASS_NUM)
@@ -55,10 +61,20 @@ typedef struct _detect_result_group_t
     detect_result_t results[OBJ_NUMB_MAX_SIZE];
 } detect_result_group_t;
 
-int post_process(int8_t *input0, int8_t *input1, int8_t *input2, int model_in_h, int model_in_w,
+int post_process(int8_t *input0, int8_t *input1, int8_t *input2, int8_t *input3, int8_t *input4, 
+                 int8_t *input5, int8_t *input6, int8_t *input7, int8_t *input8, 
+                 int model_in_h, int model_in_w,
                  float conf_threshold, float nms_threshold, float scale_w, float scale_h,
                  std::vector<int32_t> &qnt_zps, std::vector<float> &qnt_scales,
                  detect_result_group_t *group);
+
+// YOLOv11 specific processing function
+int process_yolo11(int8_t *box_tensor, int32_t box_zp, float box_scale,
+                   int8_t *score_tensor, int32_t score_zp, float score_scale,
+                   int8_t *score_sum_tensor, int32_t score_sum_zp, float score_sum_scale,
+                   int grid_h, int grid_w, int stride, int dfl_len,
+                   std::vector<float> &filterBoxes, std::vector<float> &objProbs,
+                   std::vector<int> &classId, float threshold);
 
 void deinitPostProcess();
 

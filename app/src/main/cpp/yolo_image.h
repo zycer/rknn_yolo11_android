@@ -27,8 +27,10 @@ typedef struct img_npu_buffer_t
 
 int create(int im_height, int im_width, int im_channel, char *model_path);
 void destroy();
-bool run_yolo(long npu_buf_handle, int camera_width, int camera_height, char *y0, char *y1, char *y2);
+bool run_yolo(long npu_buf_handle, int camera_width, int camera_height, char *y0, char *y1, char *y2, char *y3, char *y4, char *y5, char *y6, char *y7, char *y8);
 int yolo_post_process(char *grid0_buf, char *grid1_buf, char *grid2_buf,
+                      char *grid3_buf, char *grid4_buf, char *grid5_buf,
+                      char *grid6_buf, char *grid7_buf, char *grid8_buf,
                       int *ids, float *scores, float *boxes);
 int colorConvertAndFlip(void *src, int srcFmt, long npu_buf_handle, int dstFmt, int width, int height, int flip);
 long create_npu_mem(int img_format); 

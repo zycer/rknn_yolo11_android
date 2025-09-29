@@ -68,7 +68,7 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
     public byte textureBuffer[];
 
     // for inference
-    private String mModelName = "yolov7n_i8.rknn";
+    private String mModelName = "yolo11s_trained_i8.rknn";
     private String platform = "rk3588";
     private InferenceWrapper mInferenceWrapper;
     private String fileDirPath;     // file dir to store model cache
@@ -112,12 +112,12 @@ public class CameraPreviewActivity extends Activity implements Camera.PreviewCal
         Log.d(TAG, "get soc platform:" + platform);
 
         if (platform.equals("rk3588")) {
-            createFile(mModelName, R.raw.yolov7n_i8);
+            createFile(mModelName, R.raw.yolo11s_trained_i8);
         } else {
             Toast toast = Toast.makeText(this, "Can not get platform use RK3588 instead.", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
-            createFile(mModelName, R.raw.yolov7n_i8);
+            createFile(mModelName, R.raw.yolo11s_trained_i8);
         }
 
         try {

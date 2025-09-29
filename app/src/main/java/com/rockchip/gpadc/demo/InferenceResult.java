@@ -44,6 +44,12 @@ public class InferenceResult {
             mOutputBuffer.mGrid0Out = outputs.mGrid0Out.clone();
             mOutputBuffer.mGrid1Out = outputs.mGrid1Out.clone();
             mOutputBuffer.mGrid2Out = outputs.mGrid2Out.clone();
+            mOutputBuffer.mGrid3Out = outputs.mGrid3Out.clone();
+            mOutputBuffer.mGrid4Out = outputs.mGrid4Out.clone();
+            mOutputBuffer.mGrid5Out = outputs.mGrid5Out.clone();
+            mOutputBuffer.mGrid6Out = outputs.mGrid6Out.clone();
+            mOutputBuffer.mGrid7Out = outputs.mGrid7Out.clone();
+            mOutputBuffer.mGrid8Out = outputs.mGrid8Out.clone();
         } else {
             arraycopy(outputs.mGrid0Out, 0, mOutputBuffer.mGrid0Out, 0,
                     outputs.mGrid0Out.length);
@@ -51,6 +57,18 @@ public class InferenceResult {
                     outputs.mGrid1Out.length);
             arraycopy(outputs.mGrid2Out, 0, mOutputBuffer.mGrid2Out, 0,
                     outputs.mGrid2Out.length);
+            arraycopy(outputs.mGrid3Out, 0, mOutputBuffer.mGrid3Out, 0,
+                    outputs.mGrid3Out.length);
+            arraycopy(outputs.mGrid4Out, 0, mOutputBuffer.mGrid4Out, 0,
+                    outputs.mGrid4Out.length);
+            arraycopy(outputs.mGrid5Out, 0, mOutputBuffer.mGrid5Out, 0,
+                    outputs.mGrid5Out.length);
+            arraycopy(outputs.mGrid6Out, 0, mOutputBuffer.mGrid6Out, 0,
+                    outputs.mGrid6Out.length);
+            arraycopy(outputs.mGrid7Out, 0, mOutputBuffer.mGrid7Out, 0,
+                    outputs.mGrid7Out.length);
+            arraycopy(outputs.mGrid8Out, 0, mOutputBuffer.mGrid8Out, 0,
+                    outputs.mGrid8Out.length);
         }
         mIsVaild = false;
     }
@@ -71,6 +89,12 @@ public class InferenceResult {
         public byte[] mGrid0Out;
         public byte[] mGrid1Out;
         public byte[] mGrid2Out;
+        public byte[] mGrid3Out;
+        public byte[] mGrid4Out;
+        public byte[] mGrid5Out;
+        public byte[] mGrid6Out;
+        public byte[] mGrid7Out;
+        public byte[] mGrid8Out;
     }
 
     /**

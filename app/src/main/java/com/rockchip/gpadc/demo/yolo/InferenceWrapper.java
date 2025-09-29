@@ -39,9 +39,16 @@ public class InferenceWrapper {
 
     public int initModel(int im_height, int im_width, int im_channel, String modelPath) throws Exception {
         mOutputs = new InferenceResult.OutputBuffer();
-        mOutputs.mGrid0Out = new byte[255 * 80 * 80];
-        mOutputs.mGrid1Out = new byte[255 * 40 * 40];
-        mOutputs.mGrid2Out = new byte[255 * 20 * 20];
+        // YOLO11 output tensors allocation based on the provided tensor info
+        mOutputs.mGrid0Out = new byte[64 * 80 * 80];     // index=0: [1, 64, 80, 80]
+        mOutputs.mGrid1Out = new byte[5 * 80 * 80];      // index=1: [1, 5, 80, 80]
+        mOutputs.mGrid2Out = new byte[1 * 80 * 80];      // index=2: [1, 1, 80, 80]
+        mOutputs.mGrid3Out = new byte[64 * 40 * 40];     // index=3: [1, 64, 40, 40]
+        mOutputs.mGrid4Out = new byte[5 * 40 * 40];      // index=4: [1, 5, 40, 40]
+        mOutputs.mGrid5Out = new byte[1 * 40 * 40];      // index=5: [1, 1, 40, 40]
+        mOutputs.mGrid6Out = new byte[64 * 20 * 20];     // index=6: [1, 64, 20, 20]
+        mOutputs.mGrid7Out = new byte[5 * 20 * 20];      // index=7: [1, 5, 20, 20]
+        mOutputs.mGrid8Out = new byte[1 * 20 * 20];      // index=8: [1, 1, 20, 20]
         if (navite_init(im_height, im_width, im_channel, modelPath) != 0) {
             throw new IOException("rknn init fail!");
         }
@@ -54,6 +61,12 @@ public class InferenceWrapper {
         mOutputs.mGrid0Out = null;
         mOutputs.mGrid1Out = null;
         mOutputs.mGrid2Out = null;
+        mOutputs.mGrid3Out = null;
+        mOutputs.mGrid4Out = null;
+        mOutputs.mGrid5Out = null;
+        mOutputs.mGrid6Out = null;
+        mOutputs.mGrid7Out = null;
+        mOutputs.mGrid8Out = null;
         mOutputs = null;
 
     }
@@ -61,7 +74,7 @@ public class InferenceWrapper {
     public InferenceResult.OutputBuffer run(long img_buf_handle, int camera_width, int camera_height) {
 //        long startTime = System.currentTimeMillis();
 //        long endTime;
-        native_run(img_buf_handle, camera_width, camera_height, mOutputs.mGrid0Out, mOutputs.mGrid1Out, mOutputs.mGrid2Out);
+        native_run(img_buf_handle, camera_width, camera_height, mOutputs.mGrid0Out, mOutputs.mGrid1Out, mOutputs.mGrid2Out, mOutputs.mGrid3Out, mOutputs.mGrid4Out, mOutputs.mGrid5Out, mOutputs.mGrid6Out, mOutputs.mGrid7Out, mOutputs.mGrid8Out);
 //        this.inf_count += 1;
 //        endTime = System.currentTimeMillis();
 //        this.inf_time += (endTime - startTime);
@@ -85,13 +98,17 @@ public class InferenceWrapper {
         mDetectResults.boxes = new float[4 * OBJ_NUMB_MAX_SIZE];
 
         if (null == outputs || null == outputs.mGrid0Out || null == outputs.mGrid1Out
-                || null == outputs.mGrid2Out) {
+                || null == outputs.mGrid2Out || null == outputs.mGrid3Out || null == outputs.mGrid4Out
+                || null == outputs.mGrid5Out || null == outputs.mGrid6Out || null == outputs.mGrid7Out
+                || null == outputs.mGrid8Out) {
             return recognitions;
         }
 
 //        long startTime = System.currentTimeMillis();
 //        long endTime;
         int count = native_post_process(outputs.mGrid0Out, outputs.mGrid1Out, outputs.mGrid2Out,
+                outputs.mGrid3Out, outputs.mGrid4Out, outputs.mGrid5Out, outputs.mGrid6Out, 
+                outputs.mGrid7Out, outputs.mGrid8Out,
                 mDetectResults.ids, mDetectResults.scores, mDetectResults.boxes);
         if (count < 0) {
             Log.w(TAG, "post_process may fail.");
@@ -128,8 +145,8 @@ public class InferenceWrapper {
 
     private native int navite_init(int im_height, int im_width, int im_channel, String modelPath);
     private native void native_deinit();
-    private native int native_run(long img_buf_handle, int cam_width, int cam_height, byte[] grid0Out, byte[] grid1Out, byte[] grid2Out);
-    private native int native_post_process(byte[] grid0Out, byte[] grid1Out, byte[] grid2Out,
+    private native int native_run(long img_buf_handle, int cam_width, int cam_height, byte[] grid0Out, byte[] grid1Out, byte[] grid2Out, byte[] grid3Out, byte[] grid4Out, byte[] grid5Out, byte[] grid6Out, byte[] grid7Out, byte[] grid8Out);
+    private native int native_post_process(byte[] grid0Out, byte[] grid1Out, byte[] grid2Out, byte[] grid3Out, byte[] grid4Out, byte[] grid5Out, byte[] grid6Out, byte[] grid7Out, byte[] grid8Out,
                                            int[] ids, float[] scores, float[] boxes);
 
 }

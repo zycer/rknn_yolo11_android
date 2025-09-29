@@ -50,7 +50,9 @@ extern "C"
 JNIEXPORT jint JNICALL Java_com_rockchip_gpadc_demo_yolo_InferenceWrapper_native_1run
   (JNIEnv *env, jobject obj, jlong img_buf_handle, 
 	jint cam_width, jint cam_height,
-   jbyteArray grid0Out, jbyteArray grid1Out, jbyteArray grid2Out) {
+   jbyteArray grid0Out, jbyteArray grid1Out, jbyteArray grid2Out,
+   jbyteArray grid3Out, jbyteArray grid4Out, jbyteArray grid5Out,
+   jbyteArray grid6Out, jbyteArray grid7Out, jbyteArray grid8Out) {
 
   	jboolean inputCopy = JNI_FALSE;
   	// jbyte* const inData = env->GetByteArrayElements(in, &inputCopy);
@@ -60,13 +62,26 @@ JNIEXPORT jint JNICALL Java_com_rockchip_gpadc_demo_yolo_InferenceWrapper_native
   	jbyte* const y0 = env->GetByteArrayElements(grid0Out, &outputCopy);
 	jbyte* const y1 = env->GetByteArrayElements(grid1Out, &outputCopy);
 	jbyte* const y2 = env->GetByteArrayElements(grid2Out, &outputCopy);
+	jbyte* const y3 = env->GetByteArrayElements(grid3Out, &outputCopy);
+	jbyte* const y4 = env->GetByteArrayElements(grid4Out, &outputCopy);
+	jbyte* const y5 = env->GetByteArrayElements(grid5Out, &outputCopy);
+	jbyte* const y6 = env->GetByteArrayElements(grid6Out, &outputCopy);
+	jbyte* const y7 = env->GetByteArrayElements(grid7Out, &outputCopy);
+	jbyte* const y8 = env->GetByteArrayElements(grid8Out, &outputCopy);
+		
+	run_yolo(img_buf_handle, cam_width, cam_height, (char *)y0, (char *)y1, (char *)y2, (char *)y3, (char *)y4, (char *)y5, (char *)y6, (char *)y7, (char *)y8);
 
-	run_yolo(img_buf_handle, cam_width, cam_height, (char *)y0, (char *)y1, (char *)y2);
 
 	//env->ReleaseByteArrayElements(in, inData, JNI_ABORT);
 	env->ReleaseByteArrayElements(grid0Out, y0, 0);
 	env->ReleaseByteArrayElements(grid1Out, y1, 0);
 	env->ReleaseByteArrayElements(grid2Out, y2, 0);
+	env->ReleaseByteArrayElements(grid3Out, y3, 0);
+	env->ReleaseByteArrayElements(grid4Out, y4, 0);
+	env->ReleaseByteArrayElements(grid5Out, y5, 0);
+	env->ReleaseByteArrayElements(grid6Out, y6, 0);
+	env->ReleaseByteArrayElements(grid7Out, y7, 0);
+	env->ReleaseByteArrayElements(grid8Out, y8, 0);
 
 	return 0;
 }
@@ -77,6 +92,12 @@ Java_com_rockchip_gpadc_demo_yolo_InferenceWrapper_native_1post_1process(JNIEnv 
 																		 jbyteArray grid0_out,
 																		 jbyteArray grid1_out,
 																		 jbyteArray grid2_out,
+																		 jbyteArray grid3_out,
+																		 jbyteArray grid4_out,
+																		 jbyteArray grid5_out,
+																		 jbyteArray grid6_out,
+																		 jbyteArray grid7_out,
+																		 jbyteArray grid8_out,
 																		 jintArray ids,
 																		 jfloatArray scores,
 																		 jfloatArray boxes) {
@@ -85,6 +106,12 @@ Java_com_rockchip_gpadc_demo_yolo_InferenceWrapper_native_1post_1process(JNIEnv 
 	jbyte* const grid0_buf = env->GetByteArrayElements(grid0_out, &inputCopy);
 	jbyte* const grid1_buf = env->GetByteArrayElements(grid1_out, &inputCopy);
 	jbyte* const grid2_buf = env->GetByteArrayElements(grid2_out, &inputCopy);
+	jbyte* const grid3_buf = env->GetByteArrayElements(grid3_out, &inputCopy);
+	jbyte* const grid4_buf = env->GetByteArrayElements(grid4_out, &inputCopy);
+	jbyte* const grid5_buf = env->GetByteArrayElements(grid5_out, &inputCopy);
+	jbyte* const grid6_buf = env->GetByteArrayElements(grid6_out, &inputCopy);
+	jbyte* const grid7_buf = env->GetByteArrayElements(grid7_out, &inputCopy);
+	jbyte* const grid8_buf = env->GetByteArrayElements(grid8_out, &inputCopy);
 
 	jboolean outputCopy = JNI_FALSE;
 
@@ -93,11 +120,19 @@ Java_com_rockchip_gpadc_demo_yolo_InferenceWrapper_native_1post_1process(JNIEnv 
 	jfloat* const y2 = env->GetFloatArrayElements(boxes, &outputCopy);
 
 	detect_counts = yolo_post_process((char *)grid0_buf, (char *)grid1_buf, (char *)grid2_buf,
+									  (char *)grid3_buf, (char *)grid4_buf, (char *)grid5_buf,
+									  (char *)grid6_buf, (char *)grid7_buf, (char *)grid8_buf,
 									  (int *)y0, (float *)y1, (float *)y2);
 
 	env->ReleaseByteArrayElements(grid0_out, grid0_buf, JNI_ABORT);
 	env->ReleaseByteArrayElements(grid1_out, grid1_buf, JNI_ABORT);
 	env->ReleaseByteArrayElements(grid2_out, grid2_buf, JNI_ABORT);
+	env->ReleaseByteArrayElements(grid3_out, grid3_buf, JNI_ABORT);
+	env->ReleaseByteArrayElements(grid4_out, grid4_buf, JNI_ABORT);
+	env->ReleaseByteArrayElements(grid5_out, grid5_buf, JNI_ABORT);
+	env->ReleaseByteArrayElements(grid6_out, grid6_buf, JNI_ABORT);
+	env->ReleaseByteArrayElements(grid7_out, grid7_buf, JNI_ABORT);
+	env->ReleaseByteArrayElements(grid8_out, grid8_buf, JNI_ABORT);
 	env->ReleaseIntArrayElements(ids, y0, 0);
 	env->ReleaseFloatArrayElements(scores, y1, 0);
 	env->ReleaseFloatArrayElements(boxes, y2, 0);

@@ -46,13 +46,13 @@ float scale_w = 0.0;
 float scale_h = 0.0;
 
 uint32_t n_input = 1;
-uint32_t n_output = 3;
+uint32_t n_output = 9;
 
 rknn_tensor_attr input_attrs[1];
-rknn_tensor_attr output_attrs[3];
+rknn_tensor_attr output_attrs[9];
 
 rknn_tensor_mem *input_mems[1];
-rknn_tensor_mem *output_mems[3];
+rknn_tensor_mem *output_mems[9];
 
 std::vector<float> out_scales;
 std::vector<int32_t> out_zps;
@@ -259,7 +259,7 @@ void destroy() {
 }
 
 
-bool run_yolo(long npu_buf_handle, int camera_width, int camera_height, char *y0, char *y1, char *y2)
+bool run_yolo(long npu_buf_handle, int camera_width, int camera_height, char *y0, char *y1, char *y2, char *y3, char *y4, char *y5, char *y6, char *y7, char *y8)
 {
     int ret;
     bool status = false;
@@ -318,6 +318,12 @@ bool run_yolo(long npu_buf_handle, int camera_width, int camera_height, char *y0
     memcpy(y0, output_mems[0]->virt_addr, output_attrs[0].n_elems * sizeof(char));
     memcpy(y1, output_mems[1]->virt_addr, output_attrs[1].n_elems * sizeof(char));
     memcpy(y2, output_mems[2]->virt_addr, output_attrs[2].n_elems * sizeof(char));
+    memcpy(y3, output_mems[3]->virt_addr, output_attrs[3].n_elems * sizeof(char));
+    memcpy(y4, output_mems[4]->virt_addr, output_attrs[4].n_elems * sizeof(char));
+    memcpy(y5, output_mems[5]->virt_addr, output_attrs[5].n_elems * sizeof(char));
+    memcpy(y6, output_mems[6]->virt_addr, output_attrs[6].n_elems * sizeof(char));
+    memcpy(y7, output_mems[7]->virt_addr, output_attrs[7].n_elems * sizeof(char));
+    memcpy(y8, output_mems[8]->virt_addr, output_attrs[8].n_elems * sizeof(char));
 
 #ifdef EVAL_TIME
     gettimeofday(&stop_time, NULL);
@@ -351,6 +357,8 @@ bool run_yolo(long npu_buf_handle, int camera_width, int camera_height, char *y0
 
 
 int yolo_post_process(char *grid0_buf, char *grid1_buf, char *grid2_buf,
+                      char *grid3_buf, char *grid4_buf, char *grid5_buf,
+                      char *grid6_buf, char *grid7_buf, char *grid8_buf,
                       int *ids, float *scores, float *boxes) {
     int ret;
     if(!created) {
@@ -361,6 +369,8 @@ int yolo_post_process(char *grid0_buf, char *grid1_buf, char *grid2_buf,
     detect_result_group_t detect_result_group;
 //    LOGI("start yolo post.");
     ret = post_process((int8_t *)grid0_buf, (int8_t *)grid1_buf, (int8_t *)grid2_buf,
+                       (int8_t *)grid3_buf, (int8_t *)grid4_buf, (int8_t *)grid5_buf,
+                       (int8_t *)grid6_buf, (int8_t *)grid7_buf, (int8_t *)grid8_buf,
                        m_in_height, m_in_width, BOX_THRESH, NMS_THRESH, scale_w, scale_h,
                        out_zps, out_scales, &detect_result_group);
     if (ret < 0) {

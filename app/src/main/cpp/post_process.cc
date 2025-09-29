@@ -140,118 +140,200 @@ static float deqnt_affine_to_f32(int8_t qnt, int32_t zp, float scale)
     return ((float)qnt - (float)zp) * scale;
 }
 
-static int process(int8_t *input, int *anchor, int grid_h, int grid_w, int height, int width, int stride,
-                   std::vector<float> &boxes, std::vector<float> &objProbs, std::vector<int> &classId,
-                   float threshold, int32_t zp, float scale)
+static void compute_dfl(float* tensor, int dfl_len, float* box)
 {
+    for (int b = 0; b < 4; b++)
+    {
+        float exp_t[dfl_len];
+        float exp_sum = 0;
+        float acc_sum = 0;
+        for (int i = 0; i < dfl_len; i++)
+        {
+            exp_t[i] = exp(tensor[i + b * dfl_len]);
+            exp_sum += exp_t[i];
+        }
+        
+        for (int i = 0; i < dfl_len; i++)
+        {
+            acc_sum += exp_t[i] / exp_sum * i;
+        }
+        box[b] = acc_sum;
+    }
+}
 
+int process_yolo11(int8_t *box_tensor, int32_t box_zp, float box_scale,
+                          int8_t *score_tensor, int32_t score_zp, float score_scale,
+                          int8_t *score_sum_tensor, int32_t score_sum_zp, float score_sum_scale,
+                          int grid_h, int grid_w, int stride, int dfl_len,
+                          std::vector<float> &boxes, 
+                          std::vector<float> &objProbs, 
+                          std::vector<int> &classId, 
+                          float threshold)
+{
     int validCount = 0;
     int grid_len = grid_h * grid_w;
-    int8_t thres_i8 = qnt_f32_to_affine(threshold, zp, scale);
-    for (int a = 0; a < 3; a++)
-    {
-        for (int i = 0; i < grid_h; i++)
-        {
-            for (int j = 0; j < grid_w; j++)
-            {
-                int8_t box_confidence = input[(PROP_BOX_SIZE * a + 4) * grid_len + i * grid_w + j];
-                if (box_confidence >= thres_i8)
-                {
-                    int offset = (PROP_BOX_SIZE * a) * grid_len + i * grid_w + j;
-                    int8_t *in_ptr = input + offset;
-                    float box_x = (deqnt_affine_to_f32(*in_ptr, zp, scale)) * 2.0 - 0.5;
-                    float box_y = (deqnt_affine_to_f32(in_ptr[grid_len], zp, scale)) * 2.0 - 0.5;
-                    float box_w = (deqnt_affine_to_f32(in_ptr[2 * grid_len], zp, scale)) * 2.0;
-                    float box_h = (deqnt_affine_to_f32(in_ptr[3 * grid_len], zp, scale)) * 2.0;
-                    box_x = (box_x + j) * (float)stride;
-                    box_y = (box_y + i) * (float)stride;
-                    box_w = box_w * box_w * (float)anchor[a * 2];
-                    box_h = box_h * box_h * (float)anchor[a * 2 + 1];
-                    box_x -= (box_w / 2.0);
-                    box_y -= (box_h / 2.0);
+    int8_t score_thres_i8 = qnt_f32_to_affine(threshold, score_zp, score_scale);
+    int8_t score_sum_thres_i8 = qnt_f32_to_affine(threshold, score_sum_zp, score_sum_scale);
 
-                    int8_t maxClassProbs = in_ptr[5 * grid_len];
-                    int maxClassId = 0;
-                    for (int k = 1; k < OBJ_CLASS_NUM; ++k)
-                    {
-                        int8_t prob = in_ptr[(5 + k) * grid_len];
-                        if (prob > maxClassProbs)
-                        {
-                            maxClassId = k;
-                            maxClassProbs = prob;
-                        }
-                    }
-                    float max_class_prob = deqnt_affine_to_f32(maxClassProbs, zp, scale);
-                    float box_prob = deqnt_affine_to_f32(box_confidence, zp, scale);
-                    if (max_class_prob * box_prob > threshold){
-                        boxes.push_back(box_x);
-                        boxes.push_back(box_y);
-                        boxes.push_back(box_w);
-                        boxes.push_back(box_h);
-                        objProbs.push_back((max_class_prob * box_prob));
-                        classId.push_back(maxClassId);
-                        validCount++;
-                    }
+    for (int i = 0; i < grid_h; i++)
+    {
+        for (int j = 0; j < grid_w; j++)
+        {
+            int offset = i * grid_w + j;
+            int max_class_id = -1;
+
+            // 通过 score sum 起到快速过滤的作用
+            if (score_sum_tensor != nullptr)
+            {
+                if (score_sum_tensor[offset] < score_sum_thres_i8)
+                {
+                    continue;
                 }
+            }
+
+            int8_t max_score = -score_zp;
+            for (int c = 0; c < OBJ_CLASS_NUM; c++)
+            {
+                if ((score_tensor[offset] > score_thres_i8) && (score_tensor[offset] > max_score))
+                {
+                    max_score = score_tensor[offset];
+                    max_class_id = c;
+                }
+                offset += grid_len;
+            }
+
+            // compute box
+            if (max_score > score_thres_i8)
+            {
+                offset = i * grid_w + j;
+                float box[4];
+                float before_dfl[dfl_len * 4];
+                for (int k = 0; k < dfl_len * 4; k++)
+                {
+                    before_dfl[k] = deqnt_affine_to_f32(box_tensor[offset], box_zp, box_scale);
+                    offset += grid_len;
+                }
+                compute_dfl(before_dfl, dfl_len, box);
+
+                float x1, y1, x2, y2, w, h;
+                x1 = (-box[0] + j + 0.5) * stride;
+                y1 = (-box[1] + i + 0.5) * stride;
+                x2 = (box[2] + j + 0.5) * stride;
+                y2 = (box[3] + i + 0.5) * stride;
+                w = x2 - x1;
+                h = y2 - y1;
+                boxes.push_back(x1);
+                boxes.push_back(y1);
+                boxes.push_back(w);
+                boxes.push_back(h);
+
+                objProbs.push_back(deqnt_affine_to_f32(max_score, score_zp, score_scale));
+                classId.push_back(max_class_id);
+                validCount++;
             }
         }
     }
     return validCount;
 }
 
-int post_process(int8_t *input0, int8_t *input1, int8_t *input2, int model_in_h, int model_in_w,
+int post_process(int8_t *input0, int8_t *input1, int8_t *input2, int8_t *input3, int8_t *input4, 
+                 int8_t *input5, int8_t *input6, int8_t *input7, int8_t *input8, 
+                 int model_in_h, int model_in_w,
                  float conf_threshold, float nms_threshold, float scale_w, float scale_h,
                  std::vector<int32_t> &qnt_zps, std::vector<float> &qnt_scales,
                  detect_result_group_t *group)
 {
-//    LOGI("post process start.");
-//    LOGI("qunt_zps: [%d, %d, %d]", qnt_zps[0], qnt_zps[1], qnt_zps[2]);
-//    LOGI("qnt_scales: [%f, %f, %f]", qnt_scales[0], qnt_scales[1], qnt_scales[2]);
-
-//    int anchor0[6] = {10, 13, 16, 30, 33, 23};
-//    int anchor1[6] = {30, 61, 62, 45, 59, 119};
-//    int anchor2[6] = {116, 90, 156, 198, 373, 326};
-    // YOLOv7-tiny anchor boxes (640x640 input)
-    int anchor0[6] = {12, 16, 19, 36, 40, 28};  // stride 8
-    int anchor1[6] = {36, 75, 76, 55, 72, 146}; // stride 16
-    int anchor2[6] = {142, 110, 192, 243, 459, 401}; // stride 32
-
     memset(group, 0, sizeof(detect_result_group_t));
 
     std::vector<float> filterBoxes;
     std::vector<float> objProbs;
     std::vector<int> classId;
+    int validCount = 0;
 
-    // stride 8
-    int stride0 = 8;
-    int grid_h0 = model_in_h / stride0;
-    int grid_w0 = model_in_w / stride0;
-    int validCount0 = 0;
-    validCount0 = process(input0, (int *)anchor0, grid_h0, grid_w0, model_in_h, model_in_w,
-                          stride0, filterBoxes, objProbs, classId, conf_threshold, qnt_zps[0], qnt_scales[0]);
+    // YOLOv11 uses 3 branches with different strides
+    // Each branch has: box_tensor, score_tensor, and optionally score_sum_tensor
+    // Assuming DFL length is 16 (common for YOLOv11)
+    int dfl_len = 16;
+    int output_per_branch = 3; // box, score, score_sum (if available)
 
-    // stride 16
-    int stride1 = 16;
-    int grid_h1 = model_in_h / stride1;
-    int grid_w1 = model_in_w / stride1;
-    int validCount1 = 0;
-    validCount1 = process(input1, (int *)anchor1, grid_h1, grid_w1, model_in_h, model_in_w,
-                          stride1, filterBoxes, objProbs, classId, conf_threshold, qnt_zps[1], qnt_scales[1]);
+    for (int i = 0; i < 3; i++)
+    {
+        int8_t *score_sum_tensor = nullptr;
+        int32_t score_sum_zp = 0;
+        float score_sum_scale = 1.0;
+        
+        // Check if we have score_sum tensor (9 outputs total means 3 per branch)
+        if (output_per_branch == 3)
+        {
+            switch(i)
+            {
+                case 0:
+                    score_sum_tensor = input2;
+                    score_sum_zp = qnt_zps[2];
+                    score_sum_scale = qnt_scales[2];
+                    break;
+                case 1:
+                    score_sum_tensor = input5;
+                    score_sum_zp = qnt_zps[5];
+                    score_sum_scale = qnt_scales[5];
+                    break;
+                case 2:
+                    score_sum_tensor = input8;
+                    score_sum_zp = qnt_zps[8];
+                    score_sum_scale = qnt_scales[8];
+                    break;
+            }
+        }
 
-    // stride 32
-    int stride2 = 32;
-    int grid_h2 = model_in_h / stride2;
-    int grid_w2 = model_in_w / stride2;
-    int validCount2 = 0;
-    validCount2 = process(input2, (int *)anchor2, grid_h2, grid_w2, model_in_h, model_in_w,
-                          stride2, filterBoxes, objProbs, classId, conf_threshold, qnt_zps[2], qnt_scales[2]);
+        int box_idx = i * output_per_branch;
+        int score_idx = i * output_per_branch + 1;
 
-    int validCount = validCount0 + validCount1 + validCount2;
-//    LOGI("vc0: %d, vc1: %d, vc2: %d\n", validCount0, validCount1, validCount2);
+        int8_t *box_tensor, *score_tensor;
+        int32_t box_zp, score_zp;
+        float box_scale, score_scale;
+
+        switch(i)
+        {
+            case 0: // stride 8
+                box_tensor = input0;
+                score_tensor = input1;
+                box_zp = qnt_zps[0];
+                score_zp = qnt_zps[1];
+                box_scale = qnt_scales[0];
+                score_scale = qnt_scales[1];
+                break;
+            case 1: // stride 16
+                box_tensor = input3;
+                score_tensor = input4;
+                box_zp = qnt_zps[3];
+                score_zp = qnt_zps[4];
+                box_scale = qnt_scales[3];
+                score_scale = qnt_scales[4];
+                break;
+            case 2: // stride 32
+                box_tensor = input6;
+                score_tensor = input7;
+                box_zp = qnt_zps[6];
+                score_zp = qnt_zps[7];
+                box_scale = qnt_scales[6];
+                score_scale = qnt_scales[7];
+                break;
+        }
+
+        int stride = 8 << i; // 8, 16, 32
+        int grid_h = model_in_h / stride;
+        int grid_w = model_in_w / stride;
+
+        validCount += process_yolo11(box_tensor, box_zp, box_scale,
+                                     score_tensor, score_zp, score_scale,
+                                     score_sum_tensor, score_sum_zp, score_sum_scale,
+                                     grid_h, grid_w, stride, dfl_len,
+                                     filterBoxes, objProbs, classId, conf_threshold);
+    }
+
     // no object detect
     if (validCount <= 0)
     {
-//        LOGI("post process end.");
         return 0;
     }
 
@@ -263,18 +345,19 @@ int post_process(int8_t *input0, int8_t *input1, int8_t *input2, int model_in_h,
 
     quick_sort_indice_inverse(objProbs, 0, validCount - 1, indexArray);
 
-    std::set<int> class_set(std::begin(classId),std::end(classId));
+    std::set<int> class_set(std::begin(classId), std::end(classId));
 
-    for(auto c : class_set){
+    for (auto c : class_set)
+    {
         nms(validCount, filterBoxes, classId, indexArray, c, nms_threshold);
     }
 
     int last_count = 0;
     group->count = 0;
+
     /* box valid detect target */
     for (int i = 0; i < validCount; ++i)
     {
-
         if (indexArray[i] == -1 || last_count >= OBJ_NUMB_MAX_SIZE)
         {
             continue;
@@ -294,15 +377,10 @@ int post_process(int8_t *input0, int8_t *input1, int8_t *input2, int model_in_h,
         group->results[last_count].box.bottom = (int)(clamp(y2, 0, model_in_h) / scale_h);
         group->results[last_count].prop = obj_conf;
         group->results[last_count].class_id = id;
-//        char *label = labels[id];
-//        strncpy(group->results[last_count].name, label, OBJ_NAME_MAX_SIZE);
 
-//        LOGI("result %2d: (%4d, %4d, %4d, %4d), %d\n", i, group->results[last_count].box.left, group->results[last_count].box.top,
-//                group->results[last_count].box.right, group->results[last_count].box.bottom, id);
         last_count++;
     }
     group->count = last_count;
-//    LOGI("post process end.");
 
     return 0;
 }
